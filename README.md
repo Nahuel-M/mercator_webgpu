@@ -1,4 +1,4 @@
-<img alt="Header" src="assets/banner.jpg">
+<img alt="Header" src="assets/banner.jpeg">
 
 # Mercator viewer
 
