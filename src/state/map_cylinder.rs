@@ -9,7 +9,7 @@ use wgpu::{
 use winit::{dpi::{PhysicalPosition, PhysicalSize}, event::{ElementState, MouseButton}};
 
 
-const MERCATOR_SCALE : f32 = 2.794219058;
+const MERCATOR_SCALE : f32 = 2.794219;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Zeroable, Pod)]
