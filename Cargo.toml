@@ -8,29 +8,16 @@ cfg-if = "1"
 winit = "0.28.6"
 env_logger = "0.10"
 log = "0.4"
-wgpu = "0.16.2"
+wgpu = "0.17.0"
 pollster = "0.3"
 bytemuck = { version = "1.13.1", features = ["derive"] }
 ndarray = "0.15.6"
-image = {version = "0.24", default-features = false, features = ["png", "jpeg"]}
 
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 console_error_panic_hook = "0.1.7"
 console_log = "1.0.0"
-wgpu = { version = "0.16.2", features = [ "webgl" ]}
+wgpu = { version = "0.17.0", features = ["webgl"] }
 wasm-bindgen = "0.2.86"
 wasm-bindgen-futures = "0.4.36"
-web-sys = { version = "0.3.63", features = [
-    "Document",
-    "Window",
-    "Element",
-]}
-
-# [build]
-# rustflags = [
-# "--cfg=web_sys_unstable_apis"
-# ]
-
-# [env]
-# WGPU_BACKEND = "webgpu"
+web-sys = { version = "0.3.63", features = ["Document", "Window", "Element"] }

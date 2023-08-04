@@ -174,6 +174,7 @@ impl State {
                 event: WindowEvent::CursorMoved { position, .. },
                 ..
             } => {
+                log::warn!("{:?}", position);
                 if self.window.has_focus() {
                     self.map_cylinder
                         .handle_cursor_moved(*position, self.window.inner_size());
@@ -181,11 +182,27 @@ impl State {
                 true
             }
             Event::WindowEvent {
-                event: WindowEvent::MouseInput { state, button, .. },
+                event: WindowEvent::MouseInput { state, .. },
                 ..
             } => {
                 if self.window.has_focus() {
-                    self.map_cylinder.handle_mouse_input(*state, *button);
+                    self.map_cylinder.handle_mouse_input(*state);
+                }
+                true
+            }
+            Event::WindowEvent {
+                event: WindowEvent::Touch(touch),
+                ..
+            } => {
+                log::warn!("{:?}", touch);
+                if touch.phase == TouchPhase::Started {
+                    self.map_cylinder.reset_cursor_position(touch.location);
+                    self.map_cylinder.handle_mouse_input(ElementState::Pressed);
+                } else if touch.phase == TouchPhase::Ended || touch.phase == TouchPhase::Cancelled {
+                    self.map_cylinder.handle_mouse_input(ElementState::Released);
+                } else if touch.phase == TouchPhase::Moved {
+                    self.map_cylinder
+                        .handle_cursor_moved(touch.location, self.window.inner_size());
                 }
                 true
             }

@@ -6,7 +6,7 @@ use wgpu::{
     BindingType, Buffer, BufferBindingType, BufferDescriptor, BufferSize, BufferUsages, Device,
     Queue, ShaderStages,
 };
-use winit::{dpi::{PhysicalPosition, PhysicalSize}, event::{ElementState, MouseButton}};
+use winit::{dpi::{PhysicalPosition, PhysicalSize}, event::ElementState};
 
 
 const MERCATOR_SCALE : f32 = 2.794219;
@@ -126,17 +126,19 @@ impl MapCylinderManager {
         self.mouse_state.position = position;
     }
 
-    pub fn handle_mouse_input(&mut self, state: ElementState, button: MouseButton){
-        if button == MouseButton::Left {
-            match state {
-                ElementState::Pressed => {
-                    self.mouse_state.button_down = true;
-                }
-                ElementState::Released => {
-                    self.mouse_state.button_down = false;
-                }
+    pub fn handle_mouse_input(&mut self, state: ElementState){
+        match state {
+            ElementState::Pressed => {
+                self.mouse_state.button_down = true;
+            }
+            ElementState::Released => {
+                self.mouse_state.button_down = false;
             }
         }
+    }
+
+    pub fn reset_cursor_position(&mut self, position: PhysicalPosition<f64>) {
+        self.mouse_state.position = position;
     }
 
 }
